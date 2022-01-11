@@ -16,12 +16,43 @@ A user would need an account in order to leave a review, which is where the auth
 # Domain Driven Design
 
 ## Domain Events
+- Create account
+- Delete account
+- Create review
+- Delete review
+- Submits an edit to a review
+- Add photos
+- Delete photos
+- User logs in
+- User logs out
 
 ## Domain Commands
+- createAccount
+- deleteAccount
+- updatePassword
+- validatePassword (userlogin)
+- userLogout
+- createReview
+- editReview
+- updateReview
+- deleteReview
+- addPhoto
+- deletePhoto
 
 ## Entities
+### User Account
+- user id (unique and defined by user)
+- name (what the user wants to be called)
+- password (encrypted password)
+- sessionInfo (info about whether they are logged in)
+### User Review
+- review id (unique)
+- description
+- star rating?
 
 ## Value Objects
+- Photos
+- review id?
 
 
 
