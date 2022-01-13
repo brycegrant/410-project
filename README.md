@@ -52,8 +52,86 @@ A user would need an account in order to leave a review, which is where the auth
 
 ## Value Objects
 - Photos
-- review id?
 
+
+# REST Design
+
+## Endpoints
+
+| Description            | URL Fragment                       | HTTP Method | Path Parameters  | Representations |
+| ---------------------- | ---------------------------------- | ----------- | ---------------- | --------------- |
+| create account         | /account                           | POST        |                  | Create Account  |
+| delete account         | /account/{accountId}               | DELETE      | accountid        |                 |
+| log in                 | /account/{accountId}/login         | PUT         | accountid        | Account Login   |
+| log out                | /account/{accountId}/logout        | PUT         | accountid        |                 |
+| get reviews            | /reviews                           | GET         |                  | Get Reviews     |
+| add review             | /reviews                           | POST        |                  | Add Review      |
+| edit review            | /reviews/{reviewId}                | PUT         | reviewId         | Edit Review     |
+| delete review          | /reviews/{reviewId}                | DELETE      | reviewId         |                 |
+| upload photo to review | /reviews/{reviewId}/files          | POST        | reviewId         | File            |
+| get photo              | /reviews/{reviewId}/files/{fileId} | GET         | reviewId, fileId | File            |
+
+
+#### Account Login
+```json
+{
+    "email": "useremailstring",
+    "password": "userpasswordstring"
+}
+```
+
+#### Create an Account
+```json
+{
+    "username": "username",
+    "firstname": "firstname",
+    "lasttname": "lastname",
+    "password": "userpasswordstring",
+}
+```
+
+<!-- #### Get All Reviews
+```json
+{
+    "reviewID": "001",
+    "date": "2022-02-01T00:00:00.000Z",
+    "title": "Great Experience!",
+    "description": "I have never seen my car so clean and it did not take much time at all!",
+    "files": [
+        "file1",
+        "file2",
+        "file3"
+    ]
+}
+```
+
+```json
+{
+    "reviewID": "002",
+    "date": "2022-02-04T00:00:00.000Z",
+    "title": "Not the best",
+    "description": "My friend referred me and I honestly expected a bit more for what I paid",
+    "files": [
+        "file1",
+        "file2"
+    ]
+}
+``` -->
+
+#### Create Review
+
+```json
+{
+    "reviewID": "003",
+    "date": "2022-02-04T00:00:00.000Z",
+    "title": "Clean car!",
+    "description": "Great service!",
+    "files": [
+        "file1",
+        "file2"
+    ]
+}
+```
 
 
 
