@@ -1,0 +1,14 @@
+{
+  "name": "review-site",
+  "version": "1.0.0",
+  "description": "For this project I would like to create a website for a small car detailing business. The business itself does not exist but it seems like a fun way to learn the different technologies we will be taught in class.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "author": "brycegrant",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
