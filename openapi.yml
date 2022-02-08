@@ -11,7 +11,7 @@ paths:
       requestBody:
         required: true
         content:
-          applications/json:
+          application/json:
             schema:
               type: object
               required:
@@ -147,7 +147,7 @@ paths:
         - Reviews
       summary: Update/edit a review
       requestBody:
-        $ref: '#/components/requestBodies/SetReview'#//maybe change this?
+        $ref: '#/components/requestBodies/SetReview' #//maybe change this?
       responses:
         200:
           description: Review updated
@@ -261,7 +261,7 @@ components:
       properties:
         ReviewId:
           type: string
-          readOnly: true
+          #readOnly: true
         date:
           type: string
           format: date-time
@@ -271,7 +271,7 @@ components:
           type: string
         files:
           type: array
-          readOnly: true
+          #readOnly: true
           items:
             description: File ID
             type: string
