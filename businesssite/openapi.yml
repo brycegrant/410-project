@@ -1,0 +1,345 @@
+openapi: 3.0.3
+info: 
+  title: Small Detailing Business Site
+  version: v1
+paths:
+  /accounts:
+    x-controller: accounts #place these at each route
+    post: 
+      x-operation: createAccount
+      tags: 
+        - Accounts
+      summary: Create an Account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+               - username
+               - firstname
+               - lastname
+               - password
+              properties: 
+                username:
+                  type: string
+                firstname:
+                  type: string
+                lastname:
+                  type: string
+                password: 
+                  type: string
+                  format: password
+                  minLength: 1
+            example:
+              username: bryce21
+              firstname: bryce
+              lastname: grant
+              password: thisismypassword
+      responses: 
+        201: 
+          description: Account created.
+        400:
+          description: Invalid request.
+        409:
+          description: Account already exists.
+          
+  # /accounts/{accountId}:
+  /accounts/{username}:
+    x-controller: accounts
+    parameters:
+      # - $ref: '#/components/parameters/PathAccountId'
+      - $ref: '#/components/parameters/PathUsername'
+    put:
+       x-operation: updateAccount
+       tags:
+         - Accounts
+       security:
+        - cookieAuth: []
+       summary: Update an account.
+       requestBody:
+         content:
+           application/json:
+             schema:
+               type: object
+               properties:
+                 username:
+                   type: string
+                 firstname:
+                   type: string
+                 lastname:
+                   type: string
+                 password:
+                   type: string
+                   format: password
+                   minLength: 1
+       responses:
+         200:
+           description: Account updated
+         400:
+           description: Invalid request
+         401:
+           description: Not authenticated.
+         403:
+           description: Access denied.
+         404:
+           description: Not found.
+    delete:
+      x-operation: deleteAccount
+      tags:
+        - Accounts
+      summary: Delete an Account.
+      responses:
+        204:
+          description: Account deleted.
+        401:
+          description: Not authenticated.
+        403:
+          description: Access denied.
+          
+  #/accounts/{accountId}/login:
+  /authentication/login:
+    x-controller: authentication
+    # parameters:
+    #   - $ref: '#/components/parameters/PathAccountId'
+    put:
+      x-operation: login
+      tags:
+        - Accounts
+      summary: Log in to account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+              properties:
+                username: 
+                  type: string
+                password:
+                  type: string
+                  format: password
+            example:
+              username: bgrant2
+              password: thisisthepass
+      responses:
+        200:
+          description: Authenticated.
+        400:
+          description: Invalid Request.
+        403:
+          description: Access denied.
+        
+  #/accounts/{accountId}/logout:
+  /authentication/logout:
+    x-controller: authentication
+    # parameters:
+    #   - $ref: '#/components/parameters/PathAccountId'
+    put:
+      x-operation: logout
+      tags:
+        - Accounts
+      summary: Log out of Account.
+      responses:
+        200:
+          description: Logged out.
+        403:
+          description: Access Denied.
+          
+  /reviews: #this one potentially needs some work
+    x-controller: reviews
+    get:
+      x-operation: getReviews
+      tags:
+        - Reviews
+      summary: Get Reviews.
+      #paramaters: 
+        #not sure what to put here
+      responses:
+        200: 
+          description: Success
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reviews'
+        400: 
+          description: Invalid request.
+        401:
+          description: Not authenticated.
+    post:
+      x-operation: createReview
+      tags:
+        - Reviews
+      summary: Add a review.
+      requestBody:
+        $ref: '#/components/requestBodies/SetReview' #//maybe change to set review
+      responses:
+        201: 
+          description: Review created/added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+        400:
+          description: Invalid request.
+        401:
+          description: Not authenticated.
+  
+  /reviews/{reviewId}:
+    x-controller: reviews
+    parameters:
+      - $ref: '#/components/parameters/PathReviewId'
+    put:
+      x-operation: updateReview
+      tags:
+        - Reviews
+      summary: Update/edit a review
+      requestBody:
+        $ref: '#/components/requestBodies/SetReview'#//maybe change this?
+      responses:
+        200:
+          description: Review updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+        400:
+          description: Invalid request.
+        401:
+          description: Not Authenticated.
+        403:
+          description: Access denied.
+        404:
+          description: Not found.
+    delete:
+      x-controller: deleteReview
+      tags:
+        - Reviews
+      summary: Delete a Review
+      responses:
+        204:
+          description: Review deleted.
+        401: 
+          description: Not authenticated.
+        403:
+          description: Access denied.
+          
+  /reviews/{reviewId}/files:
+    x-controller: reviews
+    parameters:
+      - $ref: '#/components/parameters/PathReviewId'
+    post:
+      x-operation: uploadFile
+      tags:
+        - Files
+      summary: Add a photo to a review
+      requestBody:
+        content:
+          binary/octet-stream:
+            schema:
+              $ref: '#/components/schemas/File'
+      responses:
+        201:
+          description: File saved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reviews'
+        400:
+          description: Invalid request.
+        401:
+          description: Not authenticated.
+        403: 
+          description: Access Denied.
+        404:
+          description: Review not found.
+          
+  /reviews/{reviewId}/files/{fileId}:
+    x-controller: reviews
+    parameters:
+      - $ref: '#/components/parameters/PathReviewId'
+      - $ref: '#/components/parameters/PathFileId'
+    get:
+      x-operation: downloadFile
+      tags:
+        - Files
+      summary: Get a file.
+      responses:
+        200:
+          description: File downloaded.
+          content:
+            binary/octet-stream:
+              schema:
+                $ref: '#/components/schemas/File'
+        401:
+          description: Not authenticated.
+        403:
+          description: Access denied.
+        404:
+          description: Review or file not found.
+  
+components:
+  parameters:
+    # PathAccountId:
+    PathUsername:
+      #name: accountId
+      name: username
+      in: path
+      required: true
+      schema:
+        type: string
+    PathReviewId:
+      name: reviewId
+      in: path
+      required: true
+      schema:
+        type: string
+    PathFileId:
+      name: fileId
+      in: path
+      required: true
+      schema:
+        type: string
+  requestBodies:
+    SetReview: #//need to add an edit review??
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Review'
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: todoSessionId 
+  schemas:
+    File:
+      type: string
+      format: binary
+    Review:
+      type: object
+      properties:
+        ReviewId:
+          type: string
+          readOnly: true
+        date:
+          type: string
+          format: date-time
+        title:
+          type: string
+        description:
+          type: string
+        files:
+          type: array
+          readOnly: true
+          items:
+            description: File ID
+            type: string
+    Reviews:
+      type: array
+      items:
+        $ref: '#/components/schemas/Review'
