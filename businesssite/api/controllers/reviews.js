@@ -2,6 +2,7 @@ module.exports = function (pool) {
     return {
         async createReview (req, res) {
             //process of creating a review
+            const {ReviewId, date, title, description, file} = req.enforcer.body
 
         },
 
@@ -20,6 +21,10 @@ module.exports = function (pool) {
 
         },
         
+
+
+
+        //section below is for files
         async uploadFile (req, res) { //last
             //uploading a file to a review
 

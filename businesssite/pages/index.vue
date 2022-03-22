@@ -1,5 +1,6 @@
 <template>
-    <div class="vue-tempalte">
+    <!-- <div class="vue-tempalte"> -->
+    <div class="vue-template">
         <form>
             <h3>Sign In</h3>
             <br>
@@ -19,18 +20,31 @@
                 <v-btn @click="logout()">Log Out</v-btn>
               </div>
             </div>
-        </form>
+            <div>
+              
+            </div>
+        </form><br>
+        
+          <ClickAdder @clicked="onClickChild" v-bind:count="count"/>
+        
     </div>
 </template>
 
+
+
 <script>
+import ClickAdder from './ClickAdder.vue'
   export default {
     name: 'IndexPage',
+    components: {
+      ClickAdder
+    },
     data () {
       return {
         text: '',
         username: '',
-        password: ''
+        password: '',
+        count: 0
       }
     },
     methods: {
@@ -47,8 +61,14 @@
       },
       logout () {
         this.$store.dispatch('accounts/logout')
+      },
+      onClickChild (value) {
+        console.log(value)
+        this.count=value
       }
+
     },
+
     computed: {
       user () {
         return this.$store.state.accounts.user
@@ -56,4 +76,8 @@
     }
   }
 </script>
+
+
+
+
 
