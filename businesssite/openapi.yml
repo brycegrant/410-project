@@ -188,6 +188,29 @@ paths:
           description: Invalid request.
         401:
           description: Not authenticated.
+          
+  /reviews/accounts/{accountId}:
+    x-controller: reviews
+    parameters:
+      - $ref: '#/components/parameters/PathAccountId'
+    get:
+      x-operation: getReviewByAccountId
+      tags:
+        - Reviews
+      summary: List reviews by user
+      responses:
+        200: 
+          description: Success
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reviews'
+        400: 
+          description: Invalid request.
+        401:
+          description: Not authenticated.
+      
+  
   
   /reviews/{reviewId}:
     x-controller: reviews
@@ -216,7 +239,7 @@ paths:
         404:
           description: Not found.
     delete:
-      x-controller: deleteReview
+      x-operation: deleteReview
       tags:
         - Reviews
       summary: Delete a Review
@@ -227,6 +250,8 @@ paths:
           description: Not authenticated.
         403:
           description: Access denied.
+        404:
+          description: Not Found.
           
   /reviews/{reviewId}/files:
     x-controller: reviews
@@ -284,7 +309,12 @@ paths:
   
 components:
   parameters:
-    # PathAccountId:
+    PathAccountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
     PathUsername:
       #name: accountId
       name: username

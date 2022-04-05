@@ -11,6 +11,7 @@ module.exports = function (pool) {
 					.enforcer
 					.status(201)
 					.send()
+					
 			} else {
 				res.enforcer.status(409).send()
 			}
