@@ -17,7 +17,7 @@ export const actions = {
             password
         })
         if (res.status === 200) {
-            //console.log(getUserFromCookie())
+            console.log(getUserFromCookie())
             commit('setUser', getUserFromCookie())
         }
     },

@@ -66,7 +66,9 @@ exports.getReviewById = async function (client, ReviewId) {
 exports.getReviewByAccountId = async function (client, accountId) {
     const { rows } = await client.query({
         name: 'get-review-by-account-id',
-        text: 'SELECT * FROM reviews WHERE account_id=$1',
+        //text: 'SELECT * FROM reviews WHERE username=$1',
+        text: 'SELECT accounts.username, accounts.firstname, accounts.lastname, reviews."Review_id", reviews.title, reviews.description, reviews.date FROM reviews JOIN accounts ON reviews.account_id=accounts.account_id WHERE accounts.username=$1',
+
         values: [accountId]
     })
     return rows

@@ -17,7 +17,7 @@ module.exports = function (passport) {
                 // is not secure, but it can help the UI to determine
                 // if the user is logged in or not.
                 // console.log(req.user)
-                res.cookie('user', JSON.stringify(req.user.username), {
+                res.cookie('user', (req.user.username), {
                     maxAge: 36000000 // expires in 10 hours
                 })
 
