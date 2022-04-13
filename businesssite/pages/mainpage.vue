@@ -1,7 +1,6 @@
 <template>
     <div class="vue-tempalte">
         <h1>All Reviews</h1>
-              <v-btn @click="logout()">Log Out</v-btn>
       
     <div v-for="review in reviews" 
         :key="review.Review_id">
@@ -50,8 +49,8 @@
 
 <style>
 
-.card-size {
+/* .card-size {
   max-width: 500px
-}
+} */
 
 </style>

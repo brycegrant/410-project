@@ -1,7 +1,13 @@
 <template>
     <div>
-        <h1>Create a Review</h1>
-        <v-form @submit.prevent="submit">
+
+        <div v-if="user == null">
+          <h3>Please login to leave a review</h3>
+        </div>
+        
+        <div v-else>
+          <h1>Create a Review</h1>
+            <v-form @submit.prevent="submit">
             <v-text-field
             v-model="title"
             label="Title"
@@ -21,6 +27,9 @@
                 submit
             </v-btn>
         </v-form>
+        </div>
+
+        
     </div>
 </template>
 

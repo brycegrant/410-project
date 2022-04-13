@@ -1,7 +1,10 @@
 <template>
     <div class="vue-tempalte">
         <h1>My Reviews</h1>
-              <v-btn @click="logout()">Log Out</v-btn>
+
+        <div v-if="user == null">
+          <h3>Please login to see your reviews</h3>
+        </div>
       
     <div v-for="review in reviews" 
         :key="review.Review_id">

@@ -1,5 +1,5 @@
-<template>
-    <!-- <div class="vue-tempalte"> -->
+
+    <!-- <div class="vue-tempalte">
     <div class="vue-template">
         <form>
             <h3>Sign In</h3>
@@ -25,8 +25,38 @@
             </div>
         </form><br>
         
-          <ClickAdder @clicked="onClickChild" v-bind:count="count"/>
         
+    </div> -->
+
+
+<template>
+    <div>
+        <h1>Sign In</h1>
+        <v-form @submit.prevent="submit">
+            <v-text-field
+            v-model="username"
+            label="Username"
+            required
+            ></v-text-field>
+
+            <v-text-field
+            v-model="password"
+            label="Password"
+            type="password"
+            required
+            ></v-text-field>
+        
+            <!-- <v-btn @click="clear">
+                clear
+            </v-btn> -->
+
+            <v-btn to="/createaccount">
+              Create Account
+            </v-btn>
+            <v-btn @click=login() class="mr-4" type="submit">
+                Login
+            </v-btn>
+        </v-form>
     </div>
 </template>
 

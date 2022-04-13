@@ -58,6 +58,7 @@ module.exports = function (pool) {
 				} else if (account.account_id !== req.user.id) {
 					res.enforcer.status(403).send()
 				} else {
+					//await reviews.deleteReviewByAccount(client, username)
 					await accounts.deleteAccount(client, username)
 					res.enforcer.status(204).send()
 				}
